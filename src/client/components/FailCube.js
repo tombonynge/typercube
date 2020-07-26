@@ -8,13 +8,14 @@ export default function FailCube() {
     const [t, setT] = useState(6.283);
     const [axis, setAxis] = useState();
     const setLightColor = useStore((state) => state.setLightColor);
-
-    const messages = Messages();
+    const material = Messages();
+    const message = useStore((state) => state.message);
 
     useEffect(() => {
+        console.log("message index:", message);
         setAxis(chooseBetween(["x", "y"]));
         setLightColor("white");
-        mesh.current.material = messages[0];
+        mesh.current.material = material[message];
     }, []);
 
     useFrame(() => {
@@ -36,7 +37,7 @@ export default function FailCube() {
     };
 
     return (
-        <mesh castShadow ref={mesh} position={[0, 0.8, 0]}>
+        <mesh castShadow ref={mesh} position={[0, 0, 0]}>
             <boxBufferGeometry attach="geometry" args={[2, 2, 2]} />
             <meshStandardMaterial attach="material" color="white" />
         </mesh>

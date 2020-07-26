@@ -31,6 +31,8 @@ import y from "../img/y.png";
 import z from "../img/z.png";
 //
 import start from "../img/start.png";
+import lose from "../img/lose.png";
+import next from "../img/next.png";
 
 export default function Textures() {
     let textures = [];
@@ -145,5 +147,12 @@ export default function Textures() {
 export function Messages() {
     const start_texture = useLoader(THREE.TextureLoader, start);
     const start_mat = new THREE.MeshStandardMaterial({ map: start_texture });
-    return [start_mat];
+
+    const lose_texture = useLoader(THREE.TextureLoader, lose);
+    const lose_mat = new THREE.MeshStandardMaterial({ map: lose_texture });
+
+    const next_texture = useLoader(THREE.TextureLoader, next);
+    const next_mat = new THREE.MeshStandardMaterial({ map: next_texture });
+
+    return [start_mat, lose_mat, next_mat];
 }

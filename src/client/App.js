@@ -21,6 +21,7 @@ export default function App() {
     const resetScore = useStore((state) => state.resetScore);
     const mouse = useStore((state) => state.mouse);
     const updateMouse = useStore((state) => state.updateMouse);
+    const setMessage = useStore((state) => state.setMessage);
 
     function startCube() {
         setIsRunning(true);
@@ -32,12 +33,11 @@ export default function App() {
     }
 
     function stopCube() {
-        console.log("unmounting cube!");
         setIsRunning(false);
     }
 
     function restart() {
-        console.log("unmounting cube!");
+        setMessage(1);
         setIsRunning(false);
         resetScore();
         setTurnTime(2000);
@@ -47,6 +47,7 @@ export default function App() {
     function nextLevel() {
         setTurnTime(turnTime - 200);
         setLevel(level + 1);
+        setMessage(2);
     }
 
     return (

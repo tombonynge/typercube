@@ -58,6 +58,9 @@ const [useStore] = create((set, get) => ({
         const score = get().score;
         return score;
     },
+
+    message: 0,
+    setMessage: (n) => set({ message: n }),
 }));
 
 export default useStore;

@@ -73,7 +73,7 @@ export default function Cube({ turnTime, unmountMe, nextLevel, restart }) {
                         // score needs to increase!
                         setScore();
                         let score = getScore();
-                        if (score > 2) {
+                        if (score > 10) {
                             console.log("SCORE IS GREATER THAN 10");
                             nextLevel();
                             resetScore();
@@ -134,7 +134,7 @@ export default function Cube({ turnTime, unmountMe, nextLevel, restart }) {
     };
 
     return (
-        <mesh castShadow ref={mesh} position={[0, 0.8, 0]}>
+        <mesh castShadow ref={mesh} position={[0, 0, 0]}>
             <boxBufferGeometry attach="geometry" args={[2, 2, 2]} />
             <meshStandardMaterial attach="material" color="white" />
         </mesh>

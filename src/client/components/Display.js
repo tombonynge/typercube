@@ -7,14 +7,6 @@ export default function Display({ turnTime, level }) {
     const { userChar } = useStore();
     const [string, setString] = useState();
 
-    useEffect(() => {
-        // if (score > 10) {
-        //     console.log("next level!");
-        //     nextLevel();
-        //     resetScore();
-        // }
-    });
-
     return (
         <>
             <div className="display level">
