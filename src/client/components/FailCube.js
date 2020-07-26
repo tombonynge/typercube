@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useFrame } from "react-three-fiber";
 import useStore from "../Store";
-import { Start } from "./Textures";
+import { Messages } from "./Textures";
 
 export default function FailCube() {
     const mesh = useRef();
@@ -9,12 +9,12 @@ export default function FailCube() {
     const [axis, setAxis] = useState();
     const setLightColor = useStore((state) => state.setLightColor);
 
-    const start = Start();
+    const messages = Messages();
 
     useEffect(() => {
         setAxis(chooseBetween(["x", "y"]));
         setLightColor("white");
-        mesh.current.material = start;
+        mesh.current.material = messages[0];
     }, []);
 
     useFrame(() => {

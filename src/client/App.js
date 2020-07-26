@@ -6,7 +6,6 @@ import "./app.css";
 /**********COMPONENTS************/
 import Cube from "./components/Cube";
 import Plane from "./components/Plane";
-import Loading from "./components/Loading";
 import { Stats } from "./components/Stats";
 import Input from "./components/Input";
 import ScoreLight from "./components/ScoreLight";
@@ -18,22 +17,43 @@ softShadows();
 export default function App() {
     const [isRunning, setIsRunning] = useState(false);
     const [turnTime, setTurnTime] = useState(2000);
+    const [level, setLevel] = useState(1);
     const resetScore = useStore((state) => state.resetScore);
+    const mouse = useStore((state) => state.mouse);
+    const updateMouse = useStore((state) => state.updateMouse);
 
     function startCube() {
         setIsRunning(true);
     }
 
+    function resetTurnTime() {
+        setTurnTime(2000);
+        setLevel(1);
+    }
+
     function stopCube() {
+        console.log("unmounting cube!");
+        setIsRunning(false);
+    }
+
+    function restart() {
+        console.log("unmounting cube!");
         setIsRunning(false);
         resetScore();
+        setTurnTime(2000);
+        setLevel(1);
+    }
+
+    function nextLevel() {
+        setTurnTime(turnTime - 200);
+        setLevel(level + 1);
     }
 
     return (
         <>
-            <Input start={startCube} stop={stopCube} isRunning={isRunning} />
-            <Canvas concurrent shadowMap>
-                <OrbitControls />
+            <Input start={startCube} isRunning={isRunning} resetTurnTime={resetTurnTime} />
+            <Canvas shadowMap>
+                {/* <OrbitControls /> */}
                 <ambientLight intensity={0.3} />
                 <directionalLight
                     castShadow
@@ -53,14 +73,14 @@ export default function App() {
                 <fog attach="fog" args={["#ffffff", 1, 10]} />
                 {isRunning && (
                     <Suspense fallback={null}>
-                        <Cube turnTime={turnTime} unmountMe={stopCube} />
+                        <Cube turnTime={turnTime} unmountMe={stopCube} nextLevel={nextLevel} restart={restart} />
                     </Suspense>
                 )}
                 <Suspense fallback={null}>{!isRunning && <FailCube />}</Suspense>
                 <Plane />
                 {/* <Stats /> */}
             </Canvas>
-            <Display isRunning={isRunning} turnTime={turnTime} />
+            <Display isRunning={isRunning} turnTime={turnTime} nextLevel={nextLevel} level={level} />
         </>
     );
 }

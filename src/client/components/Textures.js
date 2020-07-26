@@ -142,8 +142,8 @@ export default function Textures() {
     return textures;
 }
 
-export function Start() {
+export function Messages() {
     const start_texture = useLoader(THREE.TextureLoader, start);
     const start_mat = new THREE.MeshStandardMaterial({ map: start_texture });
-    return start_mat;
+    return [start_mat];
 }

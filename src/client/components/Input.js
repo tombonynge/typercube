@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import useStore from "../Store";
 
-export default function Input({ start, stop, isRunning }) {
+export default function Input({ start, stop, isRunning, resetTurnTime }) {
     const cubeKey = useStore((state) => state.cubeKey);
     const setUserKey = useStore((state) => state.setUserKey);
     const setUserChar = useStore((state) => state.setUserChar);
@@ -22,30 +22,38 @@ export default function Input({ start, stop, isRunning }) {
 
     function handleKeyDown(e) {
         setUserKey(e.keyCode - 65);
-        if (e.keyCode === 32) {
-            //start the game && reset the key!
-            start();
-            setUserChar("");
-            resetUserAttempts();
-        } else {
-            if (isRunning) {
-                if (userAttempts === 0) {
-                    setUserChar(e.key);
-                    if (cubeKey !== null) {
-                        if (cubeKey === e.keyCode - 65) {
-                            setLightColor("green");
-                            setScore();
-                        } else {
-                            resetScore();
-                            stop();
-                        }
-                    }
-                    setUserAttempts();
+        if (isRunning) {
+            if (userAttempts === 0) {
+                // update the userChar to show the key pressed on screen to user.
+                // e.key for a space is '' so have to do this
+                if (e.keyCode === 32) {
+                    setUserChar("space");
                 } else {
-                    //maybe reset?
-                    // resetScore();
-                    // stop();
+                    setUserChar(e.key);
                 }
+
+                if (cubeKey !== null) {
+                    if (cubeKey === e.keyCode - 65) {
+                        setLightColor("green");
+                        // setScore();
+                    } else {
+                        // resetScore();
+                        // resetTurnTime();
+                        // stop();
+                    }
+                }
+                setUserAttempts();
+            } else {
+                // maybe reset?
+                // resetScore();
+                // stop();
+            }
+        } else {
+            if (e.keyCode === 32) {
+                // start the game && reset the key!
+                start();
+                setUserChar("");
+                resetUserAttempts();
             }
         }
     }

@@ -1,4 +1,5 @@
 import create from "zustand";
+import * as THREE from "three";
 
 const [useStore] = create((set, get) => ({
     // keep track of which key should be pressed (an index)
@@ -28,6 +29,7 @@ const [useStore] = create((set, get) => ({
             return true;
         } else {
             set({ fail: false });
+            // get().setScore();
             // set({ reset: true });
             return false;
         }
@@ -51,6 +53,11 @@ const [useStore] = create((set, get) => ({
     score: 0,
     setScore: () => set({ score: get().score + 1 }),
     resetScore: () => set({ score: 0 }),
+
+    getScore: () => {
+        const score = get().score;
+        return score;
+    },
 }));
 
 export default useStore;
