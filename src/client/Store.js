@@ -61,6 +61,18 @@ const [useStore] = create((set, get) => ({
 
     message: 0,
     setMessage: (n) => set({ message: n }),
+
+    keyboard: buildKeyboard(),
 }));
+
+function buildKeyboard() {
+    let a = new Array(2).fill().map(() => {
+        const pos = new THREE.Vector3(-2, 0, 0);
+        const size = new THREE.Vector3(0.5, 0.5, 0.1);
+        return { pos, size };
+    });
+    console.log(a);
+    return a;
+}
 
 export default useStore;

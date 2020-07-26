@@ -11,6 +11,9 @@ import Input from "./components/Input";
 import ScoreLight from "./components/ScoreLight";
 import FailCube from "./components/FailCube";
 import Display from "./components/Display";
+import Keyboard from "./components/Keyboard";
+
+// console.log(<Keyboard />);
 
 softShadows();
 
@@ -54,7 +57,7 @@ export default function App() {
         <>
             <Input start={startCube} isRunning={isRunning} resetTurnTime={resetTurnTime} />
             <Canvas shadowMap>
-                {/* <OrbitControls /> */}
+                <OrbitControls />
                 <ambientLight intensity={0.3} />
                 <directionalLight
                     castShadow
@@ -80,6 +83,7 @@ export default function App() {
                 <Suspense fallback={null}>{!isRunning && <FailCube />}</Suspense>
                 <Plane />
                 {/* <Stats /> */}
+                {/* <Keyboard /> */}
             </Canvas>
             <Display isRunning={isRunning} turnTime={turnTime} nextLevel={nextLevel} level={level} />
         </>
