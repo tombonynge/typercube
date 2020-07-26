@@ -18,3 +18,43 @@ Canvas:focus {
     top: 50px;
     left: 100px;
 }
+
+.display {
+    position: absolute;
+    font-family: "Teko", sans-serif;
+    /* text-transform: uppercase; */
+    font-weight: 900;
+    font-variant-numeric: slashed-zero tabular-nums;
+    line-height: 1em;
+    pointer-events: none;
+    color: indianred;
+    font-size: 2rem;
+    /* transform: skew(5deg, 5deg); */
+    /* pointer-events: all; */
+}
+
+.level {
+    top: 50px;
+    left: 50px;
+    transform: skew(5deg, 5deg);
+}
+
+.score {
+    bottom: 50px;
+    right: 50px;
+    transform: skew(5deg, 5deg);
+}
+
+.message {
+    font-size: 2rem;
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    bottom: 50vh;
+}
+
+.userkey {
+    bottom: 50px;
+    left: 50px;
+    transform: skew(-5deg, -5deg);
+}

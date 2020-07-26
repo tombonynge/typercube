@@ -10,7 +10,7 @@ export default function Cube({ turnTime, unmountMe }) {
     const timeToCheckKeys = useStore((state) => state.timeToCheckKeys);
     const setLightColor = useStore((state) => state.setLightColor);
     const setRotation = useStore((state) => state.setRotation);
-    // const fail = useStore((state) => state.fail);
+    const resetUserAttempts = useStore((state) => state.resetUserAttempts);
 
     const mesh = React.useRef();
     const mat = Textures();
@@ -90,7 +90,8 @@ export default function Cube({ turnTime, unmountMe }) {
                 setCubeKey(nextKey);
                 //reset the light
                 setLightColor("white");
-
+                //reset count of times user tried to type key
+                resetUserAttempts();
                 changeFaces = false;
             }
 
@@ -119,7 +120,7 @@ export default function Cube({ turnTime, unmountMe }) {
     return (
         <mesh castShadow ref={mesh} position={[0, 0.8, 0]}>
             <boxBufferGeometry attach="geometry" args={[2, 2, 2]} />
-            <meshStandardMaterial attach="material" color="red" />
+            <meshStandardMaterial attach="material" color="white" />
         </mesh>
     );
 }

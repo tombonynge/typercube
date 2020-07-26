@@ -8,15 +8,17 @@ import Cube from "./components/Cube";
 import Plane from "./components/Plane";
 import Loading from "./components/Loading";
 import { Stats } from "./components/Stats";
-import Score from "./components/Score";
+import Input from "./components/Input";
 import ScoreLight from "./components/ScoreLight";
 import FailCube from "./components/FailCube";
+import Display from "./components/Display";
 
 softShadows();
 
 export default function App() {
     const [isRunning, setIsRunning] = useState(false);
     const [turnTime, setTurnTime] = useState(2000);
+    const resetScore = useStore((state) => state.resetScore);
 
     function startCube() {
         setIsRunning(true);
@@ -24,11 +26,12 @@ export default function App() {
 
     function stopCube() {
         setIsRunning(false);
+        resetScore();
     }
 
     return (
         <>
-            <Score start={startCube} />
+            <Input start={startCube} stop={stopCube} isRunning={isRunning} />
             <Canvas concurrent shadowMap>
                 <OrbitControls />
                 <ambientLight intensity={0.3} />
@@ -53,10 +56,11 @@ export default function App() {
                         <Cube turnTime={turnTime} unmountMe={stopCube} />
                     </Suspense>
                 )}
-                {!isRunning && <FailCube />}
+                <Suspense fallback={null}>{!isRunning && <FailCube />}</Suspense>
                 <Plane />
-                <Stats />
+                {/* <Stats /> */}
             </Canvas>
+            <Display isRunning={isRunning} turnTime={turnTime} />
         </>
     );
 }

@@ -1,15 +1,20 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useFrame } from "react-three-fiber";
-import Textures from "./Textures";
 import useStore from "../Store";
+import { Start } from "./Textures";
 
 export default function FailCube() {
     const mesh = useRef();
     const [t, setT] = useState(6.283);
     const [axis, setAxis] = useState();
+    const setLightColor = useStore((state) => state.setLightColor);
+
+    const start = Start();
 
     useEffect(() => {
         setAxis(chooseBetween(["x", "y"]));
+        setLightColor("white");
+        mesh.current.material = start;
     }, []);
 
     useFrame(() => {

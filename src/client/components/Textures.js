@@ -29,6 +29,8 @@ import w from "../img/w.png";
 import x from "../img/x.png";
 import y from "../img/y.png";
 import z from "../img/z.png";
+//
+import start from "../img/start.png";
 
 export default function Textures() {
     let textures = [];
@@ -138,4 +140,10 @@ export default function Textures() {
     textures.push(m25);
 
     return textures;
+}
+
+export function Start() {
+    const start_texture = useLoader(THREE.TextureLoader, start);
+    const start_mat = new THREE.MeshStandardMaterial({ map: start_texture });
+    return start_mat;
 }
