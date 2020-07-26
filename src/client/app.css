@@ -1,0 +1,20 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+Canvas:focus {
+    outline: 0;
+}
+
+.test {
+    border: 1px solid red;
+    position: absolute;
+    top: 50px;
+}
+
+.letter {
+    position: absolute;
+    top: 50px;
+    left: 100px;
+}
