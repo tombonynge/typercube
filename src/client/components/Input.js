@@ -23,23 +23,21 @@ export default function Input({ start, stop, isRunning, resetTurnTime }) {
     function handleKeyDown(e) {
         setUserKey(e.keyCode - 65);
         if (isRunning) {
+            if (e.keyCode === 32) {
+                setUserChar("space");
+            } else {
+                setUserChar(e.key);
+                console.log("setting key");
+            }
             if (userAttempts === 0) {
                 // update the userChar to show the key pressed on screen to user.
                 // e.key for a space is '' so have to do this
-                if (e.keyCode === 32) {
-                    setUserChar("space");
-                } else {
-                    setUserChar(e.key);
-                }
-
                 if (cubeKey !== null) {
                     if (cubeKey === e.keyCode - 65) {
                         setLightColor("green");
-                        // setScore();
+                        setScore();
                     } else {
-                        // resetScore();
-                        // resetTurnTime();
-                        // stop();
+                        setLightColor("red");
                     }
                 }
                 setUserAttempts();

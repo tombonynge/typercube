@@ -71,9 +71,9 @@ export default function Cube({ turnTime, unmountMe, nextLevel, restart }) {
                         return;
                     } else {
                         // score needs to increase!
-                        setScore();
+                        // setScore();
                         let score = getScore();
-                        if (score > 10) {
+                        if (score === 10) {
                             console.log("SCORE IS GREATER THAN 10");
                             nextLevel();
                             resetScore();
