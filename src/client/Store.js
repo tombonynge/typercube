@@ -16,7 +16,7 @@ const [useStore] = create((set, get) => ({
 
     // count of times user inputs key (prevents scoring more than once per letter)
     userAttempts: 0,
-    setUserAttempts: () => set({ userAttempts: get().userAttempts + 1 }),
+    setUserAttempts: (n) => set({ userAttempts: n }),
     resetUserAttempts: () => set({ userAttempts: 0 }),
 
     // check if user input any key ...to handle 'no key entered'.
@@ -24,6 +24,8 @@ const [useStore] = create((set, get) => ({
     timeToCheckKeys: () => {
         const userKey = get().userKey;
         const cubeKey = get().cubeKey;
+        console.log("userKey", userKey);
+        console.log("cubeKey", cubeKey);
         if (userKey !== cubeKey) {
             set({ fail: true });
             return true;
@@ -34,12 +36,6 @@ const [useStore] = create((set, get) => ({
             return false;
         }
     },
-
-    // keep track of which key was pressed
-    userKey: 0,
-    setUserKey: (key) => set({ userKey: key }),
-
-    // keep track if a key was already pressed
 
     // light color (to indicate win or not)
     lightColor: "white",

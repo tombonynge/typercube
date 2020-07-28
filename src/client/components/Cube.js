@@ -3,7 +3,9 @@ import { useFrame } from "react-three-fiber";
 import Textures from "./Textures";
 import useStore from "../Store";
 
-export default function Cube({ turnTime, unmountMe, nextLevel, restart }) {
+const maxLetters = [6, 12, 14, 17, 19, 22, 23, 26];
+
+export default function Cube({ turnTime, unmountMe, decreaseTurnTime, restart, level, winLevel }) {
     //store key...global property
 
     const setCubeKey = useStore((state) => state.setCubeKey);
@@ -44,15 +46,14 @@ export default function Cube({ turnTime, unmountMe, nextLevel, restart }) {
             //when component renders!
             if (isMounted) {
                 isMounted = false;
-                nextKey = chooseLetter();
+
+                nextKey = chooseLetter(maxLetters[level]);
+
                 setCubeKey(nextKey);
                 const faces = [mat[nextKey], mat[nextKey], mat[nextKey], mat[nextKey], mat[nextKey], mat[nextKey]];
                 mesh.current.material = faces;
                 startTime = resetTime();
                 t = startTime;
-
-                // console.log(userKey);
-                console.log("CUBE JUST RENDERED");
             }
 
             if (t <= 0) {
@@ -74,9 +75,15 @@ export default function Cube({ turnTime, unmountMe, nextLevel, restart }) {
                         // setScore();
                         let score = getScore();
                         if (score === 10) {
-                            console.log("SCORE IS GREATER THAN 10");
-                            nextLevel();
-                            resetScore();
+                            if (turnTime < 1000) {
+                                //they win
+                                winLevel();
+                                resetScore();
+                                console.log("WINNER!");
+                            } else {
+                                decreaseTurnTime();
+                                resetScore();
+                            }
                             unmountMe();
                             return;
                         }
@@ -87,7 +94,7 @@ export default function Cube({ turnTime, unmountMe, nextLevel, restart }) {
 
                     // choose the next letter and set the current to the old next..
                     currentKey = nextKey;
-                    nextKey = chooseLetter();
+                    nextKey = chooseLetter(maxLetters[level]);
 
                     mesh.current.rotation.x = 0;
                     mesh.current.rotation.y = 0;
@@ -128,8 +135,8 @@ export default function Cube({ turnTime, unmountMe, nextLevel, restart }) {
         return arr[index];
     };
 
-    const chooseLetter = () => {
-        let index = Math.floor(Math.random() * 26);
+    const chooseLetter = (max) => {
+        let index = Math.floor(Math.random() * max);
         return index;
     };
 

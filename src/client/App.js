@@ -1,107 +1,120 @@
-// import React, { Suspense, useEffect, useState } from "react";
-// import { Canvas, useFrame } from "react-three-fiber";
-// import { OrbitControls, softShadows } from "drei";
-// import useStore from "./Store";
-// import "./app.css";
-// /**********COMPONENTS************/
-// import Cube from "./components/Cube";
-// import Plane from "./components/Plane";
-// import { Stats } from "./components/Stats";
-// import Input from "./components/Input";
-// import ScoreLight from "./components/ScoreLight";
-// import FailCube from "./components/FailCube";
-// import Display from "./components/Display";
-// import Keyboard from "./components/Keyboard";
+// TO DO
+//// ADD BETTER TEXTURES
+//// ADD 'YOU LOSE SPACE TO RESTART' TEXTURE
 
-// // console.log(<Keyboard />);
+//// LEVELS 1 THROUGH 8.
+//// SHOW WHICH KEYS AND FINGERS PER LEVEL
 
-// softShadows();
+// DONE
+//// STARTING CUBE THAT LOOKS AT MOUSE! - DONE!
 
-// export default function App() {
-//     const [isRunning, setIsRunning] = useState(false);
-//     const [turnTime, setTurnTime] = useState(2000);
-//     const [level, setLevel] = useState(1);
-//     const resetScore = useStore((state) => state.resetScore);
-//     const mouse = useStore((state) => state.mouse);
-//     const updateMouse = useStore((state) => state.updateMouse);
-//     const setMessage = useStore((state) => state.setMessage);
-
-//     function startCube() {
-//         setIsRunning(true);
-//     }
-
-//     function resetTurnTime() {
-//         setTurnTime(2000);
-//         setLevel(1);
-//     }
-
-//     function stopCube() {
-//         setIsRunning(false);
-//     }
-
-//     function restart() {
-//         setMessage(1);
-//         setIsRunning(false);
-//         resetScore();
-//         setTurnTime(2000);
-//         setLevel(1);
-//     }
-
-//     function nextLevel() {
-//         setTurnTime(turnTime - 200);
-//         setLevel(level + 1);
-//         setMessage(2);
-//     }
-
-//     return (
-//         <>
-//             <Input start={startCube} isRunning={isRunning} resetTurnTime={resetTurnTime} />
-//             <Canvas shadowMap>
-//                 <OrbitControls />
-//                 <ambientLight intensity={0.3} />
-//                 <directionalLight
-//                     castShadow
-//                     position={[0, 10, 0]}
-//                     intensity={1.5}
-//                     shadow-mapSize-width={1024}
-//                     shadow-mapSize-height={1024}
-//                     shadow-camera-near={1}
-//                     shadow-camera-far={50}
-//                     shadow-camera-left={-10}
-//                     shadow-camera-right={10}
-//                     shadow-camera-top={10}
-//                     shadow-camera-bottom={-10}
-//                 />
-//                 <ScoreLight />
-//                 <pointLight position={[-10, 0, 5]} intensity={0.3} color="#ffffff" />
-//                 <fog attach="fog" args={["#ffffff", 1, 10]} />
-//                 {isRunning && (
-//                     <Suspense fallback={null}>
-//                         <Cube turnTime={turnTime} unmountMe={stopCube} nextLevel={nextLevel} restart={restart} />
-//                     </Suspense>
-//                 )}
-//                 <Suspense fallback={null}>{!isRunning && <FailCube />}</Suspense>
-//                 <Plane />
-//                 {/* <Stats /> */}
-//                 {/* <Keyboard /> */}
-//             </Canvas>
-//             <Display isRunning={isRunning} turnTime={turnTime} nextLevel={nextLevel} level={level} />
-//         </>
-//     );
-// }
-
-import React from "react";
+import React, { useState, useCallback } from "react";
+import { useTransition, animated, useSpring } from "react-spring";
 import Game from "./components/Game";
 import UI from "./components/UI";
 import "./app.css";
 import Score from "./components/Score";
+import Levels from "./components/Levels";
+import useStore from "./Store";
+
+// const pages = [
+//     ({ style }) => <animated.div style={{ ...style, background: "lightgreen" }}>Play</animated.div>,
+//     ({ style }) => <animated.div style={{ ...style, background: "lightpink" }}>Stop</animated.div>,
+// ];
+
+// function Play() {
+//     const [index, set] = useState(0);
+//     const onClick = useCallback(() => set((state) => (state + 1) % 2), []);
+//     const transitions = useTransition(index, (p) => p, {
+//         from: { opacity: 0, transform: "translate3d(100%,0,0)" },
+//         enter: { opacity: 1, transform: "translate3d(0%,0,0)" },
+//         leave: { opacity: 0, transform: "translate3d(-50%,0,0)" },
+//     });
+//     return (
+//         <div className="play" onClick={onClick}>
+//             {transitions.map(({ item, props, key }) => {
+//                 const Page = pages[item];
+//                 return <Page key={key} style={props} />;
+//             })}
+//         </div>
+//     );
+// }
 
 export default function App() {
+    const [startGame, setStartGame] = useState(false);
+    const [toggle, setToggle] = useState(false);
+    const [level, setLevel] = useState(0);
+    const [endGame, setEndGame] = useState(false);
+    const props = useSpring({ transform: "translate3d(0,0,0)", from: { transform: "translate3d(0,-100%,0)" } });
+    const text = ["play", "stop"];
+    const test = 1;
+
+    function changeLevel(n) {
+        //zero indexed!
+        setLevel(n - 1);
+        console.log(level);
+        setToggle(false);
+    }
+
+    function levelUp() {
+        //zero indexed!
+        if (level < 7) {
+            setLevel(level + 1);
+        } else {
+            setStartGame(false);
+            setEndGame(true);
+        }
+    }
+
     return (
         <>
-            <Game />
-            {/* <UI /> */}
-            {/* <Score key={score}/> */}
+            <animated.div className="menu" style={props}>
+                <div
+                    className="help btn "
+                    onClick={(e) => {
+                        //do something....show the help pane
+                    }}
+                >
+                    ?
+                </div>
+                {test && (
+                    <div
+                        className="level btn"
+                        onClick={(e) => {
+                            setToggle(!toggle);
+                            setStartGame(false);
+                            document.querySelector(".play-btn").classList.remove("stop");
+                        }}
+                    >
+                        Level {level + 1}
+                    </div>
+                )}
+                <div
+                    className="play btn "
+                    onClick={(e) => {
+                        startGame ? e.target.classList.remove("stop") : e.target.classList.add("stop");
+                        setToggle(false);
+                        setStartGame(!startGame);
+
+                        setEndGame(false);
+                    }}
+                >
+                    {!startGame ? text[0] : text[1]}
+                </div>
+            </animated.div>
+
+            {toggle && <Levels changeLevel={changeLevel} />}
+            {endGame && (
+                <div
+                    className="winning-message"
+                    onClick={(e) => {
+                        setEndGame(false);
+                    }}
+                >
+                    CONGRATULATIONS!! YOU ARE A MASTER TYPER
+                </div>
+            )}
+            <Game gameStarted={startGame} level={level} levelUp={levelUp} />
         </>
     );
 }

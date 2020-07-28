@@ -30,113 +30,89 @@ import x from "../img/x.png";
 import y from "../img/y.png";
 import z from "../img/z.png";
 //
-import start from "../img/start.png";
-import lose from "../img/lose.png";
-import next from "../img/next.png";
+import start from "../img/0.png";
+import lose from "../img/1.png";
+import next from "../img/2.png";
+import win from "../img/3.png";
 
 export default function Textures() {
     let textures = [];
 
-    const t0 = useLoader(THREE.TextureLoader, a);
+    const t0 = useLoader(THREE.TextureLoader, y);
     const m0 = new THREE.MeshStandardMaterial({ map: t0 });
     textures.push(m0);
-
-    const t1 = useLoader(THREE.TextureLoader, b);
+    const t1 = useLoader(THREE.TextureLoader, h);
     const m1 = new THREE.MeshStandardMaterial({ map: t1 });
     textures.push(m1);
-
-    const t2 = useLoader(THREE.TextureLoader, c);
+    const t2 = useLoader(THREE.TextureLoader, n);
     const m2 = new THREE.MeshStandardMaterial({ map: t2 });
     textures.push(m2);
-
-    const t3 = useLoader(THREE.TextureLoader, d);
+    const t3 = useLoader(THREE.TextureLoader, u);
     const m3 = new THREE.MeshStandardMaterial({ map: t3 });
     textures.push(m3);
-
-    const t4 = useLoader(THREE.TextureLoader, e);
+    const t4 = useLoader(THREE.TextureLoader, j);
     const m4 = new THREE.MeshStandardMaterial({ map: t4 });
     textures.push(m4);
-
-    const t5 = useLoader(THREE.TextureLoader, f);
+    const t5 = useLoader(THREE.TextureLoader, m);
     const m5 = new THREE.MeshStandardMaterial({ map: t5 });
     textures.push(m5);
-
-    const t6 = useLoader(THREE.TextureLoader, g);
+    const t6 = useLoader(THREE.TextureLoader, r);
     const m6 = new THREE.MeshStandardMaterial({ map: t6 });
     textures.push(m6);
-
-    const t7 = useLoader(THREE.TextureLoader, h);
+    const t7 = useLoader(THREE.TextureLoader, f);
     const m7 = new THREE.MeshStandardMaterial({ map: t7 });
     textures.push(m7);
-
-    const t8 = useLoader(THREE.TextureLoader, i);
+    const t8 = useLoader(THREE.TextureLoader, v);
     const m8 = new THREE.MeshStandardMaterial({ map: t8 });
     textures.push(m8);
-
-    const t9 = useLoader(THREE.TextureLoader, j);
+    const t9 = useLoader(THREE.TextureLoader, t);
     const m9 = new THREE.MeshStandardMaterial({ map: t9 });
     textures.push(m9);
-
-    const t10 = useLoader(THREE.TextureLoader, k);
+    const t10 = useLoader(THREE.TextureLoader, g);
     const m10 = new THREE.MeshStandardMaterial({ map: t10 });
     textures.push(m10);
-
-    const t11 = useLoader(THREE.TextureLoader, l);
+    const t11 = useLoader(THREE.TextureLoader, b);
     const m11 = new THREE.MeshStandardMaterial({ map: t11 });
     textures.push(m11);
-
-    const t12 = useLoader(THREE.TextureLoader, m);
+    const t12 = useLoader(THREE.TextureLoader, i);
     const m12 = new THREE.MeshStandardMaterial({ map: t12 });
     textures.push(m12);
-
-    const t13 = useLoader(THREE.TextureLoader, n);
+    const t13 = useLoader(THREE.TextureLoader, k);
     const m13 = new THREE.MeshStandardMaterial({ map: t13 });
     textures.push(m13);
-
-    const t14 = useLoader(THREE.TextureLoader, o);
+    const t14 = useLoader(THREE.TextureLoader, e);
     const m14 = new THREE.MeshStandardMaterial({ map: t14 });
     textures.push(m14);
-
-    const t15 = useLoader(THREE.TextureLoader, p);
+    const t15 = useLoader(THREE.TextureLoader, d);
     const m15 = new THREE.MeshStandardMaterial({ map: t15 });
     textures.push(m15);
-
-    const t16 = useLoader(THREE.TextureLoader, q);
+    const t16 = useLoader(THREE.TextureLoader, c);
     const m16 = new THREE.MeshStandardMaterial({ map: t16 });
     textures.push(m16);
-
-    const t17 = useLoader(THREE.TextureLoader, r);
+    const t17 = useLoader(THREE.TextureLoader, o);
     const m17 = new THREE.MeshStandardMaterial({ map: t17 });
     textures.push(m17);
-
-    const t18 = useLoader(THREE.TextureLoader, s);
+    const t18 = useLoader(THREE.TextureLoader, l);
     const m18 = new THREE.MeshStandardMaterial({ map: t18 });
     textures.push(m18);
-
-    const t19 = useLoader(THREE.TextureLoader, t);
+    const t19 = useLoader(THREE.TextureLoader, w);
     const m19 = new THREE.MeshStandardMaterial({ map: t19 });
     textures.push(m19);
-
-    const t20 = useLoader(THREE.TextureLoader, u);
+    const t20 = useLoader(THREE.TextureLoader, s);
     const m20 = new THREE.MeshStandardMaterial({ map: t20 });
     textures.push(m20);
-
-    const t21 = useLoader(THREE.TextureLoader, v);
+    const t21 = useLoader(THREE.TextureLoader, x);
     const m21 = new THREE.MeshStandardMaterial({ map: t21 });
     textures.push(m21);
-
-    const t22 = useLoader(THREE.TextureLoader, w);
+    const t22 = useLoader(THREE.TextureLoader, p);
     const m22 = new THREE.MeshStandardMaterial({ map: t22 });
     textures.push(m22);
-
-    const t23 = useLoader(THREE.TextureLoader, x);
+    const t23 = useLoader(THREE.TextureLoader, q);
     const m23 = new THREE.MeshStandardMaterial({ map: t23 });
     textures.push(m23);
-
-    const t24 = useLoader(THREE.TextureLoader, y);
+    const t24 = useLoader(THREE.TextureLoader, a);
     const m24 = new THREE.MeshStandardMaterial({ map: t24 });
     textures.push(m24);
-
     const t25 = useLoader(THREE.TextureLoader, z);
     const m25 = new THREE.MeshStandardMaterial({ map: t25 });
     textures.push(m25);
@@ -154,5 +130,8 @@ export function Messages() {
     const next_texture = useLoader(THREE.TextureLoader, next);
     const next_mat = new THREE.MeshStandardMaterial({ map: next_texture });
 
-    return [start_mat, lose_mat, next_mat];
+    const win_texture = useLoader(THREE.TextureLoader, win);
+    const win_mat = new THREE.MeshStandardMaterial({ map: win_texture });
+
+    return [start_mat, lose_mat, next_mat, win_mat];
 }

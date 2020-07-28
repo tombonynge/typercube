@@ -7,13 +7,14 @@ export default function FailCube() {
     const mesh = useRef();
     const [t, setT] = useState(6.283);
     const [axis, setAxis] = useState();
+    const [sign, setSign] = useState();
     const setLightColor = useStore((state) => state.setLightColor);
     const material = Messages();
     const message = useStore((state) => state.message);
 
     useEffect(() => {
-        console.log("message index:", message);
-        setAxis(chooseBetween(["x", "y"]));
+        setAxis(chooseBetween(["x", "y", "both"]));
+        setSign(chooseBetween([-1, 1]));
         setLightColor("white");
         mesh.current.material = material[message];
     }, []);
@@ -21,8 +22,13 @@ export default function FailCube() {
     useFrame(() => {
         if (t > 0) {
             let oldT = t;
-            let angle = t * t * 0.1;
-            mesh.current.rotation[axis] = angle;
+            let angle = t * t * 0.1 * sign;
+            if (axis === "both") {
+                mesh.current.rotation.x = angle;
+                mesh.current.rotation.y = angle;
+            } else {
+                mesh.current.rotation[axis] = angle;
+            }
 
             setT(oldT - 0.1);
         }
@@ -32,7 +38,7 @@ export default function FailCube() {
     });
 
     const chooseBetween = (arr) => {
-        let index = Math.floor(Math.random() * 2);
+        let index = Math.floor(Math.random() * arr.length);
         return arr[index];
     };
 

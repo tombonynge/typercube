@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import useStore from "../Store";
+//map keycodes to my weird keyorder (because of levels)
+const keyMapping = [24, 11, 16, 15, 14, 7, 10, 1, 12, 4, 13, 18, 5, 2, 17, 22, 23, 6, 20, 9, 3, 8, 19, 21, 0, 25];
 
 export default function Input({ start, stop, isRunning, resetTurnTime }) {
     const cubeKey = useStore((state) => state.cubeKey);
@@ -21,30 +23,34 @@ export default function Input({ start, stop, isRunning, resetTurnTime }) {
     });
 
     function handleKeyDown(e) {
-        setUserKey(e.keyCode - 65);
+        setUserKey(keyMapping[e.keyCode - 65]);
         if (isRunning) {
-            if (e.keyCode === 32) {
-                setUserChar("space");
-            } else {
-                setUserChar(e.key);
-                console.log("setting key");
-            }
             if (userAttempts === 0) {
+                //set the user char here..so user can see what key they pressed..
+                if (e.keyCode === 32) {
+                    setUserChar("space");
+                } else {
+                    setUserChar(e.key);
+                }
+
                 // update the userChar to show the key pressed on screen to user.
                 // e.key for a space is '' so have to do this
                 if (cubeKey !== null) {
-                    if (cubeKey === e.keyCode - 65) {
-                        setLightColor("green");
+                    if (cubeKey === keyMapping[e.keyCode - 65]) {
+                        setLightColor("seagreen");
                         setScore();
                     } else {
-                        setLightColor("red");
+                        setLightColor("lightcoral");
                     }
                 }
-                setUserAttempts();
+
+                let n = userAttempts;
+                setUserAttempts(n + 1);
+                console.log("user attempts:", n + 1);
             } else {
                 // maybe reset?
-                // resetScore();
-                // stop();
+                resetScore();
+                stop();
             }
         } else {
             if (e.keyCode === 32) {

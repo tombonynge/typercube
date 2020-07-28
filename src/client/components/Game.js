@@ -1,9 +1,12 @@
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState, useRef } from "react";
 import { Canvas, useFrame } from "react-three-fiber";
 import { OrbitControls, softShadows } from "drei";
 import useStore from "../Store";
 import "../app.css";
 /**********COMPONENTS************/
+import { getMousePos } from "./Utils";
+import Loading from "./Loading";
+import IntroCube from "./IntroCube";
 import Cube from "./Cube";
 import Plane from "./Plane";
 import { Stats } from "./Stats";
@@ -13,30 +16,52 @@ import FailCube from "./FailCube";
 import Display from "./Display";
 import Keyboard from "./Keyboard";
 import LoadingCube from "./LoadingCube";
+
 // console.log(<Keyboard />);
+const turns = [2000, 1750, 1500, 1250, 1000, 750];
 
 softShadows();
 
-export default function Game() {
+export default function Game({ gameStarted, level, levelUp }) {
     const [isRunning, setIsRunning] = useState(false);
     const [turnTime, setTurnTime] = useState(2000);
-    const [level, setLevel] = useState(1);
+    const setUserChar = useStore((state) => state.setUserChar);
     const resetScore = useStore((state) => state.resetScore);
-    const mouse = useStore((state) => state.mouse);
-    const updateMouse = useStore((state) => state.updateMouse);
     const setMessage = useStore((state) => state.setMessage);
+    const mouse = useRef({ x: 0, y: 0 });
+
+    useEffect(() => {
+        hardReset();
+    }, [gameStarted, level]);
 
     function startCube() {
         setIsRunning(true);
+        setUserChar(null);
     }
 
     function resetTurnTime() {
+        // setTurnTime(2000);
+        // setLevel(1);
+    }
+
+    function winLevel() {
+        setMessage(3);
+        setIsRunning(false);
         setTurnTime(2000);
-        setLevel(1);
+        resetScore();
+        levelUp();
     }
 
     function stopCube() {
         setIsRunning(false);
+    }
+
+    function hardReset() {
+        setMessage(0);
+        setIsRunning(false);
+        resetScore();
+        // setTurnTime(2000);
+        // setLevel(1);
     }
 
     function restart() {
@@ -44,25 +69,23 @@ export default function Game() {
         setIsRunning(false);
         resetScore();
         setTurnTime(2000);
-        setLevel(1);
+        // setLevel(1);
     }
 
-    function nextLevel() {
+    function decreaseTurnTime() {
         setTurnTime(turnTime - 200);
-        setLevel(level + 1);
         setMessage(2);
     }
 
     return (
         <>
-            <Input start={startCube} isRunning={isRunning} resetTurnTime={resetTurnTime} />
-            <Canvas shadowMap>
-                <OrbitControls />
+            <Input start={startCube} stop={restart} isRunning={isRunning} resetTurnTime={resetTurnTime} />
+            <Canvas shadowMap onMouseMove={(e) => (mouse.current = getMousePos(e))}>
                 <ambientLight intensity={0.3} />
                 <directionalLight
                     castShadow
                     position={[0, 10, 0]}
-                    intensity={1.5}
+                    intensity={0.5}
                     shadow-mapSize-width={1024}
                     shadow-mapSize-height={1024}
                     shadow-camera-near={1}
@@ -74,18 +97,26 @@ export default function Game() {
                 />
                 <ScoreLight />
                 <pointLight position={[-10, 0, 5]} intensity={0.3} color="#ffffff" />
-                {/* <fog attach="fog" args={["#ffffff", 1, 10]} /> */}
+
+                <Suspense fallback={<Loading />}>{!gameStarted && <IntroCube mouse={mouse} />}</Suspense>
 
                 <Suspense fallback={<LoadingCube />}>
-                    {isRunning && <Cube turnTime={turnTime} unmountMe={stopCube} nextLevel={nextLevel} restart={restart} />}
+                    {gameStarted && isRunning && (
+                        <Cube
+                            turnTime={turnTime}
+                            unmountMe={stopCube}
+                            decreaseTurnTime={decreaseTurnTime}
+                            restart={restart}
+                            level={level}
+                            winLevel={winLevel}
+                        />
+                    )}
                 </Suspense>
 
-                <Suspense fallback={null}>{!isRunning && <FailCube />}</Suspense>
+                <Suspense fallback={null}>{gameStarted && !isRunning && <FailCube />}</Suspense>
                 <Plane />
-                {/* <Stats /> */}
-                {/* <Keyboard /> */}
             </Canvas>
-            <Display isRunning={isRunning} turnTime={turnTime} nextLevel={nextLevel} level={level} />
+            {gameStarted && <Display turnTime={turnTime} gameStarted={gameStarted} />}
         </>
     );
 }
