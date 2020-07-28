@@ -60,7 +60,7 @@ export default function Game({ gameStarted, level, levelUp }) {
         setMessage(0);
         setIsRunning(false);
         resetScore();
-        // setTurnTime(2000);
+        setTurnTime(2000);
         // setLevel(1);
     }
 
@@ -116,7 +116,7 @@ export default function Game({ gameStarted, level, levelUp }) {
                 <Suspense fallback={null}>{gameStarted && !isRunning && <FailCube />}</Suspense>
                 <Plane />
             </Canvas>
-            {gameStarted && <Display turnTime={turnTime} gameStarted={gameStarted} />}
+            {gameStarted && <Display turnTime={turnTime} />}
         </>
     );
 }

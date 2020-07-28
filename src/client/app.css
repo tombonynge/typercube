@@ -1,3 +1,12 @@
+* {
+    --color01: #e85d75;
+    --color02: #c76d7e;
+    --color03: #9f8082;
+    --color04: #8d918b;
+    --color05: #ad9b9a;
+    font-family: "Teko", sans-serif;
+}
+
 Canvas {
     position: fixed;
     top: 0px;
@@ -23,7 +32,7 @@ Canvas:focus {
     font-variant-numeric: slashed-zero tabular-nums;
     line-height: 1em;
     pointer-events: none;
-    padding: 0.5rem 1rem;
+    /* padding: 0.5rem 1rem; */
     color: grey;
     box-shadow: 0px 2px 4px #00000020, 0px 2px 5px #00000030;
     font-size: 1.5rem;
@@ -52,6 +61,7 @@ Canvas:focus {
 }
 
 .userkey {
+    padding: 0.5rem 1rem;
     bottom: 50px;
     left: 50px;
     /* transform: skew(-5deg, -5deg); */
@@ -60,6 +70,17 @@ Canvas:focus {
 .typetime {
     top: 100px;
     left: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+.typetime > div {
+    padding: 0.5rem 1rem;
+}
+
+.typetime > .selected {
+    background-color: var(--color05);
+    color: white;
 }
 
 .ui {
@@ -193,21 +214,21 @@ Canvas:focus {
     border-bottom: 1px solid white;
 }
 .help {
-    background-color: lightblue;
+    background-color: var(--color01);
     width: 60px;
 }
 .level {
-    background-color: lightskyblue;
+    background-color: var(--color02);
     width: 200px;
 }
 
 .play {
-    background-color: lightgreen;
+    background-color: var(--color04);
     width: 200px;
 }
 
 .stop {
-    background-color: lightcoral;
+    background-color: var(--color05);
 }
 
 .level-menu {
@@ -278,4 +299,21 @@ Canvas:focus {
     font-size: 2rem;
     width: 400px;
     height: 100px;
+}
+
+.helper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.helper > div {
+    max-width: 80%;
+    background-color: white;
 }

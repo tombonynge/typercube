@@ -16,6 +16,8 @@ import "./app.css";
 import Score from "./components/Score";
 import Levels from "./components/Levels";
 import useStore from "./Store";
+import { SkeletonHelper } from "three";
+import Helper from "./components/Helper";
 
 // const pages = [
 //     ({ style }) => <animated.div style={{ ...style, background: "lightgreen" }}>Play</animated.div>,
@@ -45,6 +47,7 @@ export default function App() {
     const [toggle, setToggle] = useState(false);
     const [level, setLevel] = useState(0);
     const [endGame, setEndGame] = useState(false);
+    const [help, setHelp] = useState(false);
     const props = useSpring({ transform: "translate3d(0,0,0)", from: { transform: "translate3d(0,-100%,0)" } });
     const text = ["play", "stop"];
     const test = 1;
@@ -72,7 +75,12 @@ export default function App() {
                 <div
                     className="help btn "
                     onClick={(e) => {
-                        //do something....show the help pane
+                        setHelp(!help);
+                        setToggle(false);
+                        setStartGame(false);
+                        if (document.querySelector(".play-btn")) {
+                            document.querySelector(".play-btn").classList.remove("stop");
+                        }
                     }}
                 >
                     ?
@@ -82,8 +90,11 @@ export default function App() {
                         className="level btn"
                         onClick={(e) => {
                             setToggle(!toggle);
+                            setHelp(false);
                             setStartGame(false);
-                            document.querySelector(".play-btn").classList.remove("stop");
+                            if (document.querySelector(".play-btn")) {
+                                document.querySelector(".play-btn").classList.remove("stop");
+                            }
                         }}
                     >
                         Level {level + 1}
@@ -95,6 +106,7 @@ export default function App() {
                         startGame ? e.target.classList.remove("stop") : e.target.classList.add("stop");
                         setToggle(false);
                         setStartGame(!startGame);
+                        setHelp(false);
 
                         setEndGame(false);
                     }}
@@ -114,6 +126,7 @@ export default function App() {
                     CONGRATULATIONS!! YOU ARE A MASTER TYPER
                 </div>
             )}
+            {help && <Helper />}
             <Game gameStarted={startGame} level={level} levelUp={levelUp} />
         </>
     );
