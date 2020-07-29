@@ -37,6 +37,7 @@ export default function Display({ turnTime }) {
                     }
                 })}
             </div>
+
             {userChar && <div className="display userkey">you pressed: {userChar} </div>}
             <div className="key-score-container">
                 <div className="key-score">

@@ -31,6 +31,7 @@ export default function Game({ gameStarted, level, levelUp }) {
     const mouse = useRef({ x: 0, y: 0 });
 
     useEffect(() => {
+        // document.querySelector("Canvas").parentElement.classList.add("canvas-container");
         hardReset();
     }, [gameStarted, level]);
 
