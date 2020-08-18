@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSpring, animated } from "react-spring";
 import "../app.css";
-import useStore from "../store";
+import useStore from "../Store";
 import hands from "../img/hands.png";
 const list = [1, 2, 3, 4, 5, 6, 7, 8];
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useTransition, useSpring, animated } from "react-spring";
 import "../app.css";
-import useStore from "../store";
+import useStore from "../Store";
 import audio from "./Sound";
 
 export default function KeyScore({ score, char }) {

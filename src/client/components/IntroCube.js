@@ -1,12 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useFrame } from "react-three-fiber";
 import { getAngle } from "./Utils";
+// import { StartMessage } from "./Textures";
 
 export default function ({ mouse }) {
     const mesh = useRef();
     const [oldAngle, setOldAngle] = useState({ x: 0, y: 0 });
+    // const intro_mat = StartMessage();
 
     useFrame(() => {
+        // mesh.current.material = mat;
         let angle = getAngle(mouse.current.x, mouse.current.y, 10);
         //add some easing so cube doesn't snap to new angle if mouse exits and re-enters window frame
         if (oldAngle.x !== angle.x) {

@@ -35,6 +35,8 @@ import lose from "../img/1.png";
 import next from "../img/2.png";
 import win from "../img/3.png";
 
+import intro from "../img/4.png";
+
 export default function Textures() {
     let textures = [];
 
@@ -134,4 +136,11 @@ export function Messages() {
     const win_mat = new THREE.MeshStandardMaterial({ map: win_texture });
 
     return [start_mat, lose_mat, next_mat, win_mat];
+}
+
+export function StartMessage() {
+    const intro_texture = useLoader(THREE.TextureLoader, intro);
+    const intro_mat = new THREE.MeshStandardMaterial({ map: intro_texture });
+
+    return intro_mat;
 }

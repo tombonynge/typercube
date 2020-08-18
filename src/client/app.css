@@ -118,10 +118,11 @@ Canvas:focus {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    /* border: 1px solid black; */
 }
 
 .key-score {
-    /* position: fixed; */
+    /* position: absolute; */
     height: 90%;
     font-size: 2rem;
     color: white;
@@ -131,8 +132,9 @@ Canvas:focus {
     grid-template-columns: 8vh;
     justify-items: start;
     align-items: center;
-    align-content: stretch;
-    row-gap: 1%;
+    /* align-content: stretch; */
+    /* row-gap: 1%; */
+    /* border: 1px solid black; */
 }
 
 .key-score > div {
