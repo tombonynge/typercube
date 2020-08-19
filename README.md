@@ -2,6 +2,9 @@
 # 3D touch typing game
 My final project for the Full Stack Web Dev course at [Spiced Academy](https://www.spiced-academy.com).
 
+<kbd>![](https://github.com/tombonynge/typercube/blob/master/typercube-gif.gif)
+</kbd>
+
 ### Aim
 In 5 days, build a small game that would help me (and potentially anyone) to increase touch typing speed.
 
