@@ -99,8 +99,7 @@ export default function Game({ gameStarted, level, levelUp }) {
                 <ScoreLight />
                 <pointLight position={[-10, 0, 5]} intensity={0.3} color="#ffffff" />
 
-                {/* <Suspense fallback={<Loading />}>{!gameStarted && <IntroCube mouse={mouse} />}</Suspense> */}
-                {!gameStarted && <IntroCube mouse={mouse} />}
+                <Suspense fallback={<Loading />}>{!gameStarted && <IntroCube mouse={mouse} />}</Suspense>
 
                 <Suspense fallback={<LoadingCube />}>
                     {gameStarted && isRunning && (
